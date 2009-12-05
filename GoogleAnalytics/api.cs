@@ -16,7 +16,7 @@ namespace GoogleAnalytics {
 		GANTracker SharedTracker { get; }
 
 		[Export ("startTrackerWithAccountID:dispatchPeriod:delegate:")]
-		void StartTracker (string accountiD, int dispatchPeriod, GANTrackerDelegate ganDelegate);
+		void StartTracker (string accountiD, int dispatchPeriod, [NullAllowed] GANTrackerDelegate ganDelegate);
 
 		[Export ("stopTracker")]
 		void StopTracker ();
