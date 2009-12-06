@@ -20,7 +20,7 @@ namespace GoogleAnalytics {
 				IntPtr ptr_to_error = (IntPtr) (&error);
 
 				var ret = _TrackPageView (url, (IntPtr) ptr_to_error);
-				if (ptr_to_error != IntPtr.Zero)
+				if (error != IntPtr.Zero)
 					nsError = (NSError) Runtime.GetNSObject (error);
 				else
 					nsError = null;
@@ -35,7 +35,7 @@ namespace GoogleAnalytics {
 				IntPtr ptr_to_error = (IntPtr) (&error);
 
 				var ret = _TrackEvent (category, action, label, value, (IntPtr) ptr_to_error);
-				if (ptr_to_error != IntPtr.Zero)
+				if (error != IntPtr.Zero)
 					nsError = (NSError) Runtime.GetNSObject (error);
 				else
 					nsError = null;
