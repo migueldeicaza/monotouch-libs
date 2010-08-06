@@ -57,7 +57,7 @@ namespace Flurry
 
 		//+ (void)countPageViews:(id)target;		
 		[Static, Export ("countPageViews:")]
-		void CountPageViews (IntPtr target);
+		void CountPageViews (NSObject target);
 
 		//+ (void)countPageView;					
 		[Static, Export ("countPageView")]
