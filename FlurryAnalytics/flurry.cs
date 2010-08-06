@@ -1,21 +1,16 @@
-//
-//  Flurry iPhone Analytics Agent
-//
-//  MIT X11 licensed
-//
-// Copyright 2010 Kevin McMahon (http://twitter.com/klmcmahon)
-//
 using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
-using MonoTouch.UIKit;
 using MonoTouch.CoreLocation;
+using MonoTouch.UIKit;
 
-namespace FlurryAnalytics
+namespace Flurry
 {
+
 	[BaseType (typeof (NSObject))]
 	interface FlurryAPI {
+
 		//+ (void)setAppCircleEnabled:(BOOL)value;		
 		[Static, Export ("setAppCircleEnabled:")]
 		void SetAppCircleEnabled (bool value);
@@ -62,7 +57,7 @@ namespace FlurryAnalytics
 
 		//+ (void)countPageViews:(id)target;		
 		[Static, Export ("countPageViews:")]
-		void CountPageViews (NSObject target);
+		void CountPageViews (IntPtr target);
 
 		//+ (void)countPageView;					
 		[Static, Export ("countPageView")]
@@ -115,14 +110,6 @@ namespace FlurryAnalytics
 		//+ (void)setAppCircleDelegate:(id)delegate;
 		[Static, Export ("setAppCircleDelegate:")]
 		void SetAppCircleDelegate (IntPtr delegate1);
-
-		//+ (CLLocationManager *)startSessionWithLocationServices:(NSString *)apiKey;
-		[Static, Export ("startSessionWithLocationServices:")]
-		CLLocationManager StartSessionWithLocationServices (string apiKey);
-
-		//+ (void)setLocation:(CLLocation *)location;
-		[Static, Export ("setLocation:")]
-		void SetLocation (CLLocation location);
 
 	}
 }

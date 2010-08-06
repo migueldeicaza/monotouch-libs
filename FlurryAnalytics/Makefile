@@ -1,7 +1,13 @@
+SOURCESWITHLOCATION = \
+	flurryWithLocation.cs		
+
 SOURCES = \
-	api.cs		
+	flurry.cs
 
-all: Flurry.dll
+all: FlurryWithLocation.dll Flurry.dll
 
-Flurry.dll: $(SOURCES) 
-	/Developer/MonoTouch/usr/bin/btouch -out=Flurry.dll api.cs
+FlurryWithLocation.dll: $(SOURCESWITHLOCATION) 
+	/Developer/MonoTouch/usr/bin/btouch -out=FlurryWithLocation.dll flurryWithLocation.cs
+
+Flurry.dll: $(SOURCES)
+	/Developer/MonoTouch/usr/bin/btouch -out=Flurry.dll flurry.cs

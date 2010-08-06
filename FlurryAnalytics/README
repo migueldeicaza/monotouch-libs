@@ -1,1 +1,4 @@
 Binding for the Flurry Analytics iPhone SDK v2.6
+
+when you use Flurry.dll link against libFlurry.a
+when you use FlurryWithLocation.dll link against libFlurryWithLocation.a
