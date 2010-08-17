@@ -15,8 +15,18 @@ using MonoTouch.CoreLocation;
 
 namespace FlurryWithLocation
 {
+
 	[BaseType (typeof (NSObject))]
 	interface FlurryAPI {
+
+		//+ (void)setAppVersion:(NSString *)version;		
+		[Static, Export ("setAppVersion:")]
+		void SetAppVersion (string version);
+
+		//+ (NSString *)getFlurryAgentVersion;			
+		[Static, Export ("getFlurryAgentVersion")]
+		string GetFlurryAgentVersion { get; }
+
 		//+ (void)setAppCircleEnabled:(BOOL)value;		
 		[Static, Export ("setAppCircleEnabled:")]
 		void SetAppCircleEnabled (bool value);
@@ -25,9 +35,13 @@ namespace FlurryWithLocation
 		[Static, Export ("setShowErrorInLogEnabled:")]
 		void SetShowErrorInLogEnabled (bool value);
 
-		//+ (void)unlockDebugMode:(NSString*)debugModeKey apiKey:(NSString *)apiKey;
+		//+ (void)unlockDebugMode:(NSString*)debugModeKey apiKey:(NSString *)apiKey;	
 		[Static, Export ("unlockDebugMode:apiKey:")]
 		void UnlockDebugMode (string debugModeKey, string apiKey);
+
+		//+ (void)setPauseSecondsBeforeStartingNewSession:(int)seconds; 
+		[Static, Export ("setPauseSecondsBeforeStartingNewSession:")]
+		void SetPauseSecondsBeforeStartingNewSession (int seconds);
 
 		//+ (void)startSession:(NSString *)apiKey;
 		[Static, Export ("startSession:")]
@@ -57,9 +71,9 @@ namespace FlurryWithLocation
 		[Static, Export ("logEvent:withParameters:timed:")]
 		void LogEvent (string eventName, NSDictionary parameters, bool timed);
 
-		//+ (void)endTimedEvent:(NSString *)eventName;
-		[Static, Export ("endTimedEvent:")]
-		void EndTimedEvent (string eventName);
+		//+ (void)endTimedEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;	
+		[Static, Export ("endTimedEvent:withParameters:")]
+		void EndTimedEvent (string eventName, NSDictionary parameters);
 
 		//+ (void)countPageViews:(id)target;		
 		[Static, Export ("countPageViews:")]
@@ -81,13 +95,9 @@ namespace FlurryWithLocation
 		[Static, Export ("setSessionReportsOnCloseEnabled:")]
 		void SetSessionReportsOnCloseEnabled (bool sendSessionReportsOnClose);
 
-		//+ (void)setSessionReportsOnPauseEnabled:(BOOL)sendSessionReportsOnClose;	
+		//+ (void)setSessionReportsOnPauseEnabled:(BOOL)setSessionReportsOnPauseEnabled;	
 		[Static, Export ("setSessionReportsOnPauseEnabled:")]
-		void SetSessionReportsOnPauseEnabled (bool sendSessionReportsOnClose);
-
-		//+ (void)setAppVersion:(NSString *)version;
-		[Static, Export ("setAppVersion:")]
-		void SetAppVersion (string version);
+		void SetSessionReportsOnPauseEnabled (bool setSessionReportsOnPauseEnabled);
 
 		//+ (void)setEventLoggingEnabled:(BOOL)value;		
 		[Static, Export ("setEventLoggingEnabled:")]
@@ -97,9 +107,9 @@ namespace FlurryWithLocation
 		[Static, Export ("getHook:xLoc:yLoc:view:")]
 		UIView GetHook (string hook, int x, int y, UIView view);
 
-		//+ (UIView *)getHook:(NSString *)hook xLoc:(int)x yLoc:(int)y view:(UIView *)view attachToView:(BOOL)attachToView orientation:(NSString *)orientation canvasOrientation:(NSString *)canvasOrientation autoRefresh:(BOOL)refresh;
-		[Static, Export ("getHook:xLoc:yLoc:view:attachToView:orientation:canvasOrientation:autoRefresh:")]
-		UIView GetHook (string hook, int x, int y, UIView view, bool attachToView, string orientation, string canvasOrientation, bool refresh);
+		//+ (UIView *)getHook:(NSString *)hook xLoc:(int)x yLoc:(int)y view:(UIView *)view attachToView:(BOOL)attachToView orientation:(NSString *)orientation canvasOrientation:(NSString *)canvasOrientation autoRefresh:(BOOL)refresh canvasAnimated:(BOOL)canvasAnimated;
+		[Static, Export ("getHook:xLoc:yLoc:view:attachToView:orientation:canvasOrientation:autoRefresh:canvasAnimated:")]
+		UIView GetHook (string hook, int x, int y, UIView view, bool attachToView, string orientation, string canvasOrientation, bool refresh, bool canvasAnimated);
 
 		//+ (void)updateHook:(UIView *)banner;
 		[Static, Export ("updateHook:")]
@@ -109,13 +119,13 @@ namespace FlurryWithLocation
 		[Static, Export ("removeHook:")]
 		void RemoveHook (UIView banner);
 
-		//+ (void)openCatalog:(NSString *)hook canvasOrientation:(NSString *)canvasOrientation;
-		[Static, Export ("openCatalog:canvasOrientation:")]
-		void OpenCatalog (string hook, string canvasOrientation);
+		//+ (void)openCatalog:(NSString *)hook canvasOrientation:(NSString *)canvasOrientation canvasAnimated:(BOOL)canvasAnimated;
+		[Static, Export ("openCatalog:canvasOrientation:canvasAnimated:")]
+		void OpenCatalog (string hook, string canvasOrientation, bool canvasAnimated);
 
 		//+ (void)setAppCircleDelegate:(id)delegate;
 		[Static, Export ("setAppCircleDelegate:")]
-		void SetAppCircleDelegate (IntPtr delegate1);
+		void SetAppCircleDelegate (IntPtr appCircleDelegate);
 
 		//+ (CLLocationManager *)startSessionWithLocationServices:(NSString *)apiKey;
 		[Static, Export ("startSessionWithLocationServices:")]
@@ -124,6 +134,28 @@ namespace FlurryWithLocation
 		//+ (void)setLocation:(CLLocation *)location;
 		[Static, Export ("setLocation:")]
 		void SetLocation (CLLocation location);
+
+	}
+	[Model]
+
+	[BaseType (typeof (NSObject))]
+	interface FlurryAdDelegate {
+
+		//@optional- (void)dataAvailable;
+		[Abstract, Export ("dataAvailable")]
+		void DataAvailable ();
+
+		//- (void)dataUnavailable;
+		[Abstract, Export ("dataUnavailable")]
+		void DataUnavailable ();
+
+		//- (void)canvasWillDisplay:(NSString *)hook;
+		[Abstract, Export ("canvasWillDisplay:")]
+		void CanvasWillDisplay (string hook);
+
+		//- (void)canvasWillClose;
+		[Abstract, Export ("canvasWillClose")]
+		void CanvasWillClose ();
 
 	}
 }
