@@ -1,3 +1,5 @@
+NOTE: The native library that Flurry produces is a THUMB library and, due to a bug with the linker that Apple hasn't fixed, will not work reliably with MonoTouch.  I've submitted a bug request to Flurry to see if they'll disable the THUMB library setting in Xcode and provide a THUMB-less binary.
+
 Binding for the Flurry Analytics iPhone SDK v2.7
 
 when you use Flurry.dll link against libFlurry.a
